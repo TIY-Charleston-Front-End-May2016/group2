@@ -2,18 +2,62 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Knightrider</title>
+    <title>Knightryder</title>
+    <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="node_modules/normalize-css/normalize.css">
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <section class='main-container'>
-      <div><h1>JOUST</h1></div>
-      <button id="newGame" type="button" name="newGame">New Game</button>
-      <div class="game-window" class="hidden">
-
-
+      <div class='title'>
+        <h1>KNIGHT :: RYDER</h1>
+        <button id="newGame" type="button" name="newGame">New Game</button>
       </div>
+      <div class="game-window" class="hidden">
+        <!--title-->
+        <div class='titleInWindow'>
+          <h2>Knightryder</h2>
+          <img src="assets/dmx.png" alt=""/>
+          <h5 class="toCharPage">-click to continue-</h5>
+        </div>
+        <!--input/horse-->
+        <div class="charPage">
+          <input type="input" name="name" placeholder="type name"value="">
+          <button type="button" name="name" class="username">submit</button>
+          <input type="input" name="lance" placeholder="name your lance" value="">
+          <button type="button" name="lance" class="lancename">submit</button>
+          <span class="toLancePage"> -click to continue- </span>
+          <div class="mrEd">
+
+          </div>
+          <div class="penelope">
+
+          </div>
+          <div class="hector">
+
+          </div>
+        </div>
+        <div class="lancePage">
+          <h3>Uh oh... looks like we're out of those lances</h3>
+          <p>
+            LUCKILY... we have this handy Lance Bass Bass Lance.
+          </p>
+          <img src="url/assets/lacebass-basslance.png" alt="" />
+        </div>
+        <!-- trash talk -->
+        <div class="trashTalk">
+          <h3>Time to Trash Talk</h3>
+          <p>Trash talking is a way to knock your opponent off balance. Make sure it hurts. That's how the Knight Ryders roll.</p>
+          <input type="input" name="name" placeholder="X gonna give it to ya." value="">
+          <div class="enemyFighter">
+            <!-- img stuff -->
+          </div>
+          <div class="myFighter">
+            <!-- dmx and horse img stuff (lance bass as a bass lance) -->
+          </div>
+        </div>
+        <!-- fight -->
+
     </section>
     <!-- Scripts-->
     <script src="node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
