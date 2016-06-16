@@ -8,10 +8,12 @@ var joust = {
   myHorse: {},
   enemy: {},
   enemyHorse: {},
+  trashStr: '',
 
   init: function() {
     joust.styling();
     joust.events();
+    horseObject.init();
   },
 
   styling: function() {
@@ -39,16 +41,19 @@ var joust = {
 
   chooseChar: function() {
     // show inputs for name and lance, and horses
-    // var charName = prompt("Choose your character's name");
-      //console.log(charName);
+      $('charPage').fadeIn();
+      $(".username").fadeIn();
+      $(".lancename").fadeIn();
       $('.username').on('click', function(event){
             event.preventDefault();
             var $username = $('input[name="name"]').val();
             console.log($username);
             var createChar = charObject.init();
-            myChar = createChar($username);
+            joust.myChar = createChar({name: $username});
+            console.log(createChar({name: $username}));
             $(".username").fadeOut();
           });
+    // logs lance, fades lance button, fades in continue button
       $('.lancename').on('click', function(event){
             event.preventDefault();
             var $lancename = $('input[name="lance"]').val();
@@ -56,26 +61,49 @@ var joust = {
             $(".lancename").fadeOut();
             $(".toLancePage").fadeIn();
           });
+    // selects horse
+      $('.horse-img').on('click', function(){
+        $('.charPage .horse-img').siblings().removeClass('selected');
+        event.preventDefault();
+        var horse = this.classList[0];
+        console.log(this.classList[0]);
+        this.classList.add('selected');
+        console.log(this);
 
-    // $('.lance-img').on('click', function(){
-    //   event.preventDefault();
-    //   var chosenLance = $(this)
-    // });
+        if(horse === 'penelope') {
+          joust.myHorse = horseObject.penelope;
+        } else if (horse === 'hector') {
+          joust.myHorse = horseObject.hector;
+        } else {
+          joust.myHorse = horseObject.mrEd;
+        };
+        console.log("this is my horse: ", joust.myHorse)
+      });
 
-    $('.horse-img').on('click', function(){
+      // fades out char page and sends to lance page
+      $('.toLancePage').on('click', function(){
+        event.preventDefault();
+        $('.charPage').fadeOut();
+        $(".toLancePage").fadeIn();
+        joust.lancePage();
+      })
+  },
+  lancePage: function(){
+    $('.toTrashPage').on('click', function(){
       event.preventDefault();
-      var chosenHorse = this.chooseHorse($(this).data("horseName"));
-      //uhhh... ?
-    });
+      $('.lancePage').fadeOut();
+      joust.trashTalk();
+    })
   },
   trashTalk: function(){
-    var trashStr = prompt("time to trash talk!")
-    myChar.trashBoating(trashStr);
-
-  },
-  showBoating: function(){
-    var showBoatStr = prompt("time to Showboat!")
-    myChar.trashBoating(showBoatStr);
+    $('.trashTalk').fadeIn();
+    $('.trash').on('click', function(event){
+      event.preventDefault();
+      joust.trashStr = $('input[name="trash"]').val();
+      $('input[name="trash"]').val('');
+      $('.trashTalk').fadeOut();
+      joust.fight();
+    })
   },
   fight: function(){
     // choose attack
@@ -86,29 +114,20 @@ var joust = {
   gameOver: function(){
     // check score(health)
     if (myChar > enemy) {
-      alert('You Won! Play again?')
+      $(".winLose h3").text('You Won! Click "New Game" to play again, dawg!');
+      $(".winLose img").attr("src", "/assets/fistbump.gif");
     }else if (myChar < enemy) {
-      alert('You have been defeated. Play again?')
+      $(".winLose h3").text('You have been defeated. Click "New Game" to play again, dawg!');
+      $(".winLose img").attr("src", "/assets/disappointedDMX.gif");
     }else {
-      alert('Looks like a tie! Play again?')
+      $(".winLose h3").text('Looks like a tie! Click "New Game" to play again, dawg!');
+      $(".winLose img").attr("src", "/assets/gameover.gif");
     }
+    $('.winLose').fadeOut().css({"-webkit-transform":"translate(0,-600px)"});
     // declare winner
     // ((go to next enemy?))
     // play again if lose or win???
 
     prompt('Would you like to play again?');
   },
-  chooseHorse: function(whichHorse){
-    var horse = horseObject;
-    if (whichHorse === "Mr. Ed"){
-        horse = new Horse({speed: 100, name: "Mr. Ed", healthWeapon: "Super-sonic", balanceWeapon: "Rainbow Fart"});
-      }
-    else if (whichHorse === "Penelope"){
-      horse = new Horse({speed:100, name: "Penelope", healthWeapon: "Laser Eyes", balanceWeapon: "Thunder Wings"});
-    }
-    else if (whichHorse === "Hector"){
-      horse = new Horse({speed:100, name: "Hector", healthWeapon: "Fire Breath", balanceWeapon: "Stank Eye"})
-    }
-    return horse;
-  }
 }
